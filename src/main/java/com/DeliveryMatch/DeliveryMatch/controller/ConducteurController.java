@@ -1,47 +1,39 @@
 package com.DeliveryMatch.DeliveryMatch.controller;
 
-import com.DeliveryMatch.DeliveryMatch.dto.TrajetDto;
-import com.DeliveryMatch.DeliveryMatch.entities.Colis;
-import com.DeliveryMatch.DeliveryMatch.entities.Demande;
-import com.DeliveryMatch.DeliveryMatch.entities.Trajet;
-import com.DeliveryMatch.DeliveryMatch.services.ConducteurService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+
+import com.DeliveryMatch.DeliveryMatch.Dto.ConducteurDto;
+import com.DeliveryMatch.DeliveryMatch.service.ConducteurService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/conducteurs")
-@RequiredArgsConstructor
+@AllArgsConstructor
+
 public class ConducteurController {
 
-    private final ConducteurService conducteurService;
+    public ConducteurService conducteurService;
 
-    @PostMapping("/{id}/trajets")
-    public ResponseEntity<Trajet> publierTrajet(@PathVariable Long id, @RequestBody TrajetDto dto) {
-        return ResponseEntity.ok(conducteurService.publierTrajet(id, dto));
+    @GetMapping("/AllConducteurs")
+    public List<ConducteurDto> getAllConducteurS() {
+        return conducteurService.getAllConducteurs();
+    }
+    @PostMapping("/AddConducteur")
+    public ConducteurDto AddConducteur(@RequestBody  ConducteurDto conducteurDto) {
+        return conducteurService.create(conducteurDto);
     }
 
-    @GetMapping("/{id}/demandes")
-    public ResponseEntity<List<Demande>> voirDemandes(@PathVariable Long id) {
-        return ResponseEntity.ok(conducteurService.getDemandesPourConducteur(id));
+    @GetMapping("/Conducteur/{id}")
+    public ConducteurDto getConducteurById(@PathVariable Long id) {
+        return conducteurService.getConducteurById(id);
     }
-
-    @PutMapping("/demandes/{demandeId}/accepter")
-    public ResponseEntity<Void> accepterDemande(@PathVariable Long demandeId) {
-        conducteurService.accepterDemande(demandeId);
-        return ResponseEntity.ok().build();
+    @PutMapping("/Conducteur/{id}")
+    public ConducteurDto updateConducteur(@RequestBody ConducteurDto conducteurDto , @PathVariable Long id) {
+        return conducteurService.updateConducteur(conducteurDto, id);
     }
-
-    @PutMapping("/demandes/{demandeId}/refuser")
-    public ResponseEntity<Void> refuserDemande(@PathVariable Long demandeId) {
-        conducteurService.refuserDemande(demandeId);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/{id}/historique")
-    public ResponseEntity<List<Colis>> consulterHistorique(@PathVariable Long id) {
-        return ResponseEntity.ok(conducteurService.consulterHistorique(id));
+    @DeleteMapping("/Conducteur/{id}")
+    public void deleteConducteur(@PathVariable Long id) {
+        conducteurService.deleteConducteur(id);
     }
 }
