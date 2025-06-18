@@ -3,7 +3,10 @@ package com.DeliveryMatch.DeliveryMatch.service;
 import com.DeliveryMatch.DeliveryMatch.Dto.ConducteurDto;
 import com.DeliveryMatch.DeliveryMatch.Mapper.ConducteurMapper;
 import com.DeliveryMatch.DeliveryMatch.Model.Conducteur;
+import com.DeliveryMatch.DeliveryMatch.Model.Demande;
 import com.DeliveryMatch.DeliveryMatch.Repository.ConducteurRipository;
+import com.DeliveryMatch.DeliveryMatch.Repository.DemandeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +17,14 @@ public class ConducteurService {
 
     private final ConducteurRipository conducteurRipository;
     private final ConducteurMapper conducteurMapper;
+    private final DemandeRepository demandeRepository;
 
-    public ConducteurService(ConducteurRipository conducteurRipository, ConducteurMapper conducteurMapper) {
+
+
+    public ConducteurService(ConducteurRipository conducteurRipository, ConducteurMapper conducteurMapper , DemandeRepository demandeRepository) {
         this.conducteurRipository = conducteurRipository;
         this.conducteurMapper = conducteurMapper;
+        this.demandeRepository = demandeRepository;
     }
 
     @Transactional
@@ -51,5 +58,9 @@ public class ConducteurService {
 
     public void deleteConducteur(Long id) {
         conducteurRipository.deleteById(id);
+    }
+
+    public List<Demande> getDemandesReçues(Long conducteurId) {
+        return demandeRepository.findByTrajetConducteurId(conducteurId);
     }
 }
