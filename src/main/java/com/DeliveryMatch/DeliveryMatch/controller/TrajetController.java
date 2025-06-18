@@ -10,16 +10,18 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/Trajet")
+@CrossOrigin(origins = "*")
 public class TrajetController {
 
     public TrajetService trajetService;
 
-    @PostMapping("/AddTrajet")
+    @PostMapping
     public TrajetDto AddTrajet(@RequestBody TrajetDto trajetDto){
         return trajetService.AddTrajet(trajetDto);
     }
 
-    @GetMapping("/AllTrajets")
+    @GetMapping
     public List<TrajetDto> getAllTrajets(){
         return trajetService.getAllTrajets();
     }
@@ -29,7 +31,7 @@ public class TrajetController {
         return trajetService.getTrajetById(id);
     }
 
-    @PutMapping("/trajet/{id}")
+    @PutMapping("/Trajet/{id}")
     public TrajetDto updateTrajet(@PathVariable Long id ,@RequestBody TrajetDto trajetDto){
         return trajetService.updateTrajet(id , trajetDto);
     }

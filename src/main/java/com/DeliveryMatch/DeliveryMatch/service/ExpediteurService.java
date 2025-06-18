@@ -46,7 +46,7 @@ public class ExpediteurService {
         return expediteurMapper.ToExpediteurDto(expediteurRepository.save(expediteurMapper.ToExpediteurEntity(expediteurDto)));
     }
 
-    public void DeleteExpediteur(Long id){
+    public void deleteExpediteur(Long id){
         expediteurRepository.deleteById(id);
     }
 

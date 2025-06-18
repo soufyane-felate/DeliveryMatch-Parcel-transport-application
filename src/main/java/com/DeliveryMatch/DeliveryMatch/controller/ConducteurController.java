@@ -10,16 +10,20 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/Conducteur")
+@CrossOrigin(origins = "*")
+
 
 public class ConducteurController {
 
     public ConducteurService conducteurService;
 
-    @GetMapping("/AllConducteurs")
+    @GetMapping
     public List<ConducteurDto> getAllConducteurS() {
         return conducteurService.getAllConducteurs();
     }
-    @PostMapping("/AddConducteur")
+
+    @PostMapping
     public ConducteurDto AddConducteur(@RequestBody  ConducteurDto conducteurDto) {
         return conducteurService.create(conducteurDto);
     }
