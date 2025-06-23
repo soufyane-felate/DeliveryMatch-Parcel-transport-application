@@ -1,7 +1,6 @@
 package com.DeliveryMatch.DeliveryMatch.config;
 
 import com.DeliveryMatch.DeliveryMatch.Dto.*;
-import com.DeliveryMatch.DeliveryMatch.config.JwtService;
 import com.DeliveryMatch.DeliveryMatch.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +9,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public class AuthController {
 
     private final AuthService authService;
-    private final JwtService jwtService;
 
     @PostMapping("/register/conducteur")
     public ResponseEntity<AuthResponse> registerConducteur(@RequestBody ConducteurRegisterDto request) {
